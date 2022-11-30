@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
 import React from 'react';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { KeyboardAvoidingView } from 'react-native';
 
 
 
@@ -10,13 +11,17 @@ export default function UserInfo() {
     const [textName, setTextName] = useState('');
     const [weightText, setWeightText] = useState('');
     const onNextBtn = () => {
-        navigation.navigate('Goal');
+        navigation.navigate('Goal', {
+            name: textName,
+            weight: weightText,
+        });
     };
 
     const navigation = useNavigation();
 
 
     return (
+      
         <View style={styles.container}>
             <View style={styles.title}>
                 <Text style={styles.titleText}>Welcome!</Text>
@@ -29,13 +34,15 @@ export default function UserInfo() {
                 </View>
                 <View style={styles.dataBlock}>
                     <Text style={styles.dataText}>Weight</Text>
-                    <TextInput style={styles.dataInput} placeholder="Enter your weight" keyboardType='numeric' value={weightText} onChangeText={setWeightText} />
+                    <TextInput style={styles.dataInput} placeholder="Enter your weight" value={weightText} onChangeText={setWeightText} />
                 </View>
             </View>
             <View style={styles.nextBtn}>
                 <Button title="Next" color="#FFA500"  onPress={onNextBtn}  />
             </View>
         </View>
+
+
     );
 }
 
@@ -70,6 +77,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center'
   
      
     },
@@ -77,6 +85,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+   
  
     },
     dataBlock: {

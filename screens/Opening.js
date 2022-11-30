@@ -4,6 +4,7 @@ import LOGO from '../assets/LOGO.png';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import FITNANCIAL from '../assets/fitnancial.png';
 
 
 
@@ -53,7 +54,7 @@ export default function Opening() {
             <Text style={styles.openingText}>The right path to your weight goals</Text>
           </View>
           <View style={styles.logoContainer}>
-            <Image source={LOGO} style={styles.logoimg} />
+            <Image source={FITNANCIAL} style={styles.logoimg} />
             <Text style={styles.logo}>Fitnancial</Text>
           </View>
           <View style={styles.signUp}>
@@ -92,11 +93,12 @@ export default function Opening() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundImage: '#fff',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 50,
-    paddingBottom: 50,
+    paddingTop: 25,
+    paddingBottom: 25,
+    
 
 
   },
@@ -114,15 +116,14 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   logoimg: {
-    width: '15%',
-    height: '15%',
+
   },
   signUp: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    marginBottom: 30,
+    
   },
   opening: {
   },

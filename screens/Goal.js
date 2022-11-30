@@ -3,19 +3,30 @@ import { StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
 import React from 'react';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { KeyboardAvoidingView } from 'react-native';
 
 
-export default function Goal() {
+export default function Goal({route}) {
     const [goalText, setGoalText] = useState('');
     const navigation = useNavigation();
 
+    const { name, weight } = route.params;
+    const [nameText, setNameText] = useState(name);
+    const [weightText, setWeightText] = useState(weight);
+
     const onNextBtn = () => {
-        navigation.navigate('Time');
+        navigation.navigate('Time', {
+            name: name,
+            weight: weight,
+            goal: goalText
+        });
     };
     const onBackBtn = () => {
         navigation.navigate('UserInfo');
     };
     return(
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
+
         <View style={styles.container}>
              <View style={styles.title}>
                 <Text style={styles.titleText}>Let's hear about your goals</Text>
@@ -31,6 +42,7 @@ export default function Goal() {
                 <Button title="Next" color="#FFA500" onPress={onNextBtn}/>
             </View>
         </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -44,7 +56,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         paddingBottom: 25,
-        paddingTop: 50,
+        paddingTop: 25,
      
 
     },
