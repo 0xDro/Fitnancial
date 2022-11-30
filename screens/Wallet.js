@@ -44,7 +44,7 @@ export default function Wallet({route}){
             } else if (ethers.utils.formatUnits(balance, 18).length == 4){
                 setBalance(ethers.utils.formatUnits(balance, 18));
             } else {
-                setBalance(ethers.utils.formatUnits(balance, 18).slice(0,4));
+                setBalance(ethers.utils.formatUnits(balance, 18).slice(0,ethers.utils.formatUnits(balance, 18).length - 1 ) );
             }
             
         }

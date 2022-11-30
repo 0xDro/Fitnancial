@@ -8,12 +8,14 @@ import { KeyboardAvoidingView } from 'react-native';
 
 export default function Journey({route}){
 
-    const {name, weight, goal, date, direction, delta, walletgen} = route.params;
+    const {name, weight, goal, date, direction, delta, wallet} = route.params;
+    console.log("walleet in journey:", wallet)
 
     const [deltaPath, setDeltaPath] = useState(0);
 
     const navigation = useNavigation();
     const getStarted = () => {
+      
         navigation.navigate('Payment', {
             name: name,
             weight: weight,
@@ -21,7 +23,7 @@ export default function Journey({route}){
             date: date,
             direction: direction,
             delta: delta,
-            walletgen: walletgen,
+            walletgen: wallet,
             deltaTrack: deltaPath
         });
     }

@@ -13,6 +13,7 @@ export default function Time({route}) {
 
     const {name, weight, goal} = route.params;
     const [dateText, setDateText] = useState('');
+    const [walletgen, setWalletGen] = useState();
 
     var weightGoal;
     var direction;
@@ -27,9 +28,18 @@ export default function Time({route}) {
         direction = "lose";
     }
 
-    var walletgen = ethers.Wallet.createRandom();
+    useEffect(() => {
+        const wallet = ethers.Wallet.createRandom();
+        console.log(wallet);
+        console.log(wallet.privateKey)
+        console.log(wallet.address);
+        setWalletGen(wallet);
+    }, []);
     
     const onNextBtn = () => {
+        console.log("walletgen: ", walletgen)
+        console.log(walletgen.privateKey)
+        console.log(walletgen.address);
         navigation.navigate('Journey', {
             name: name,
             weight: weight,
@@ -37,7 +47,7 @@ export default function Time({route}) {
             date: dateText,
             direction: direction,
             delta: weightGoal,
-            walletgen: walletgen
+            wallet: walletgen
         });
     };
     const onBackBtn = () => {

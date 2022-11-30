@@ -11,6 +11,7 @@ import Home from './screens/Home';
 import Journey from './screens/Journey';
 import Wallet from './screens/Wallet';
 import Payment from './screens/Payment';
+import Charity from './screens/Charity';
 const Stack = createNativeStackNavigator();
 import {decode, encode} from 'base-64';
 if (!global.btoa) {  global.btoa = encode }
@@ -25,8 +26,9 @@ export default function App() {
                 <Stack.Screen options={{ headerShown: false }}name="UserInfo" component={UserInfo} />
                 <Stack.Screen options={{ headerShown: false }}name="Goal" component={Goal} />
                 <Stack.Screen options={{ headerShown: false }}name="Time" component={Time} />
-                <Stack.Screen options={{ headerShown: false }}name="Payment" component={Payment} />
                 <Stack.Screen options={{ headerShown: false }}name="Journey" component={Journey} />
+                <Stack.Screen options={{ headerShown: false }}name="Payment" component={Payment} />
+                <Stack.Screen options={{ headerShown: false }}name="Charity" component={Charity} />
                 <Stack.Screen options={{ headerShown: false }}name="Home" component={Home} />
                 <Stack.Screen options={{ headerShown: false }}name="Wallet" component={Wallet} />
             </Stack.Navigator>

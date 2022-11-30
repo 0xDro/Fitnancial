@@ -15,8 +15,9 @@ import FITNANCIAL from '../assets/fitnancialsmall.png';
 
 export default function Home({route}) {
 
-    const {name, weight, goal, date, direction, delta, privateKey, address, deltaPath} = route.params;
+    const {name, weight, goal, date, direction, delta, walletgen, deltaPath} = route.params;
     const [currentWeight, setCurrentWeight] = useState(weight);
+    console.log("wallet in home ",walletgen)
     const [userInfo, setUserInfo] = useState({
         name: name,
         weight: weight,
@@ -24,6 +25,7 @@ export default function Home({route}) {
         date: date,
         deltaPath: deltaPath,
         delta: delta,
+        // chairty: chairty,
     });
     const currentDate = new Date();
     let day = currentDate.getDate();
@@ -35,22 +37,11 @@ export default function Home({route}) {
     const [wallet, setWallet] = useState();
     const [contractKeep, setContractKeep] = useState();
     const [balance, setBalance] = useState("0.00");
-    const [adr, setAdr] = useState(address);
-    const [pk, setPk] = useState(privateKey);
+    const [adr, setAdr] = useState();
+    const [pk, setPk] = useState();
     const [nextGoalDate, setNextGoalDate] = useState('');
     const [nextGoalWeight, setNextGoalWeight] = useState('');
     const [directionTerm, setDirectionTerm] = useState('');
-
-    
-
-
-
- 
-
-
-    
-
-
 
   
 
@@ -69,8 +60,6 @@ export default function Home({route}) {
         });
     };
     useEffect(() => {
-        const provider = new ethers.providers.JsonRpcProvider(PROVIDER);
-        const walletgen = new ethers.Wallet(privateKey, provider);
         const contract = new ethers.Contract(USDCADR, USDCABI, walletgen);
 
         const currentMonth = parseInt(today.slice(0,2));
@@ -96,14 +85,16 @@ export default function Home({route}) {
 
         setWallet(walletgen);
         setContractKeep(contract);
+        setAdr(walletgen.address);
+        setPk(walletgen.privateKey);
         const getBalance = async() => {
             const balance = ethers.BigNumber.from(await contract.balanceOf(walletgen.address));
-            if (ethers.utils.formatUnits(balance, 18).length == 3){
+            if (ethers.utils.formatUnits(balance, 18).length == 3  ){
                 setBalance(ethers.utils.formatUnits(balance, 18) + "0");
             } else if (ethers.utils.formatUnits(balance, 18).length == 4){
                 setBalance(ethers.utils.formatUnits(balance, 18));
             } else {
-                setBalance(ethers.utils.formatUnits(balance, 18).slice(0,4));
+                setBalance(ethers.utils.formatUnits(balance, 18).slice(0,ethers.utils.formatUnits(balance, 18).length - 1 ) );
             }
             
         }
