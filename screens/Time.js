@@ -30,16 +30,12 @@ export default function Time({route}) {
 
     useEffect(() => {
         const wallet = ethers.Wallet.createRandom();
-        console.log(wallet);
-        console.log(wallet.privateKey)
-        console.log(wallet.address);
+     
         setWalletGen(wallet);
     }, []);
     
     const onNextBtn = () => {
-        console.log("walletgen: ", walletgen)
-        console.log(walletgen.privateKey)
-        console.log(walletgen.address);
+      
         navigation.navigate('Journey', {
             name: name,
             weight: weight,

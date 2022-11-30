@@ -9,7 +9,7 @@ import { KeyboardAvoidingView } from 'react-native';
 export default function Journey({route}){
 
     const {name, weight, goal, date, direction, delta, wallet} = route.params;
-    console.log("walleet in journey:", wallet)
+     
 
     const [deltaPath, setDeltaPath] = useState(0);
 

@@ -15,9 +15,10 @@ import FITNANCIAL from '../assets/fitnancialsmall.png';
 
 export default function Home({route}) {
 
-    const {name, weight, goal, date, direction, delta, walletgen, deltaPath} = route.params;
+    const {name, weight, goal, date, direction, delta, walletgen, deltaPath, charity} = route.params;
     const [currentWeight, setCurrentWeight] = useState(weight);
-    console.log("wallet in home ",walletgen)
+    const [charityAdr, setCharityAdr] = useState(charity);
+
     const [userInfo, setUserInfo] = useState({
         name: name,
         weight: weight,
@@ -25,7 +26,6 @@ export default function Home({route}) {
         date: date,
         deltaPath: deltaPath,
         delta: delta,
-        // chairty: chairty,
     });
     const currentDate = new Date();
     let day = currentDate.getDate();
@@ -45,12 +45,22 @@ export default function Home({route}) {
 
   
 
-    const [data, setData] = useState([{
+    const [data, setData] = useState([
+        {
         id: 1,
         date: today,
         weight: userInfo.weight,
         result: "- $0.00"
-    }]);
+    },
+    {
+        id: 2,
+        date: "1/1/2021",
+        weight: "200",
+        result: "- $0.00"
+    },
+
+   
+]);
     
     const navigation = useNavigation();
     const onWalletClick = () => {

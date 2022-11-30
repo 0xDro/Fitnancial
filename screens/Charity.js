@@ -6,58 +6,140 @@ import { useNavigation } from '@react-navigation/native';
 import { KeyboardAvoidingView } from 'react-native';
 import "@ethersproject/shims";
 import {ethers} from 'ethers';
-
+import { THE_WATER_PROJECT, GRACE_AID, GIVE_DIRECTLY, BREAST_CANCER } from '../abi/USDCABI';
 export default function Charity({route}){
     const {name, weight, goal, date, direction, delta, walletgen, deltaPath} = route.params;
-   
-    console.log('walleet in chairy', walletgen);
-    console.log(route.params)
+    const [selectedCharity, setSelectedCharity] = useState(null);
+    const [otherText, setOtherText] = useState();
+  
 
     const navigation = useNavigation();
-    const toHome = () =>{
-        navigation.navigate('Home', {
-            name: name, 
-            weight: weight,
-            goal: goal,
-            date: date,
-            direction: direction,
-            delta: delta,
-            walletgen: walletgen,
-            deltaPath: deltaPath,
-            // chairty: ''
-            
 
-        });
+    const setCharity = (num) => {
+        console.log(num)
+    }
+    const toHome = () =>{
+        if (selectedCharity == null){
+            
+            navigation.navigate('Home', {
+                name: name, 
+                weight: weight,
+                goal: goal,
+                date: date,
+                direction: direction,
+                delta: delta,
+                walletgen: walletgen,
+                deltaPath: deltaPath,
+                charity: otherText,
+
+            });
+        } else {
+            navigation.navigate('Home', {
+                name: name, 
+                weight: weight,
+                goal: goal,
+                date: date,
+                direction: direction,
+                delta: delta,
+                walletgen: walletgen,
+                deltaPath: deltaPath,
+                charity: selectedCharity,
+
+            });
+            
+        }
     }
     return(
+       
         <View style={styles.container}>
             <View style={styles.title}>
                 <Text style={styles.titleText}>Select your favorite charity</Text>
             </View>
             <View style={styles.charityContainer}>
-                <View style={styles.charityBlock}>
+                <View  style={styles.charityBlock}>
                     <Text style={styles.charityText}>The Water Project</Text>
+                    <Button title="Select" onPress={() => {
+                        navigation.navigate('Home', {
+                            name: name, 
+                            weight: weight,
+                            goal: goal,
+                            date: date,
+                            direction: direction,
+                            delta: delta,
+                            walletgen: walletgen,
+                            deltaPath: deltaPath,
+                            charity: THE_WATER_PROJECT,
+                        });
+                        
+                        }}></Button>
                 </View>
                 <View style={styles.charityBlock}>
-                    <Text style={styles.charityText}>Breast Cancer Support</Text>
+                    <Text  style={styles.charityText}>Breast Cancer Support</Text>
+                    <Button title="Select" onPress={() => {
+                        navigation.navigate('Home', {
+                            name: name, 
+                            weight: weight,
+                            goal: goal,
+                            date: date,
+                            direction: direction,
+                            delta: delta,
+                            walletgen: walletgen,
+                            deltaPath: deltaPath,
+                            charity: BREAST_CANCER,
+                        });
+                        
+                        }}></Button>
                 </View>
                 <View style={styles.charityBlock}>
                     <Text style={styles.charityText}>GRACEaid</Text>
+                    <Button title="Select" onPress={() => {
+                        navigation.navigate('Home', {
+                            name: name, 
+                            weight: weight,
+                            goal: goal,
+                            date: date,
+                            direction: direction,
+                            delta: delta,
+                            walletgen: walletgen,
+                            deltaPath: deltaPath,
+                            charity: GRACE_AID,
+                        });
+                        
+                        }}></Button>
                 </View>
-                <View style={styles.charityBlock}>
+                <View  style={styles.charityBlock}>
                     <Text style={styles.charityText}>Give Directly</Text>
+                    <Button title="Select" onPress={() => {
+                        navigation.navigate('Home', {
+                            name: name, 
+                            weight: weight,
+                            goal: goal,
+                            date: date,
+                            direction: direction,
+                            delta: delta,
+                            walletgen: walletgen,
+                            deltaPath: deltaPath,
+                            charity: GIVE_DIRECTLY,
+                        });
+                        
+                        }}></Button>
                 </View>
                 <View style={styles.spacer}/>
+                <View style={styles.spacer}/>
                 <View style={styles.charityBlock}>
-                    <TextInput placeholder='Enter ETH address for other charity' style={styles.otherInput}>
+                    <TextInput placeholder='Enter ETH address for other charity' style={styles.otherInput} value={otherText} onChangeText={setOtherText}>
                     </TextInput>
                 </View>
+                <View style={styles.smallspacer}/>
+            
+                <View onTouchEnd={toHome} style={styles.buttonContainer}>
+                <Text style={styles.buttonText}>Other</Text>
+            </View>
             </View>
 
-            <View onTouchEnd={toHome} style={styles.buttonContainer}>
-                <Text style={styles.buttonText}>Start your journey</Text>
-            </View>
+            
         </View>
+        
     );
 }
 
@@ -90,17 +172,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        height: 'auto'
+        height: '100%'
     },
     charityBlock: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         width: '100%',
         height: 70,
         backgroundColor: '#fff',
-      
+        paddingLeft: 20,
+        paddingRight: 20,
+        
         borderWidth: 1,
         borderColor: '#000',
     },
@@ -129,10 +213,19 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         backgroundColor: '#fff',
+    
+        borderBottomColor: '#000',
+        borderBottomWidth: 1,
+
+      
     },
     spacer: {
-        height: 30,
-    }
+        height: 50,
+    },
+    smallspacer: {
+        height: 20,
+    },
+
 
 
 
