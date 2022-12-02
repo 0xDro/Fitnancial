@@ -10,7 +10,7 @@ import {ethers} from 'ethers';
 
 
 export default function Time({route}) {
-
+    //INPUT FIELD STATE and Wallet generation state
     const {name, weight, goal} = route.params;
     const [dateText, setDateText] = useState('');
     const [walletgen, setWalletGen] = useState();
@@ -18,7 +18,7 @@ export default function Time({route}) {
     var weightGoal;
     var direction;
     const navigation = useNavigation();
-
+    //set direction of weight loss or gain
     if (goal > weight) {
         weightGoal = goal - weight;
         direction = "gain";
@@ -28,12 +28,15 @@ export default function Time({route}) {
         direction = "lose";
     }
 
+    //generate a random ethreum wallet on render and set to state
     useEffect(() => {
         const wallet = ethers.Wallet.createRandom();
      
         setWalletGen(wallet);
     }, []);
-    
+
+
+    //Navigation with state passing
     const onNextBtn = () => {
       
         navigation.navigate('Journey', {
@@ -76,6 +79,8 @@ export default function Time({route}) {
     )
 }
 
+
+//CSS styles
 
 const styles = StyleSheet.create({
     container: {

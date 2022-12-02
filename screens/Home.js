@@ -15,6 +15,7 @@ import FITNANCIAL from '../assets/fitnancialsmall.png';
 
 export default function Home({route}) {
 
+    //Prop destructing and state setting
     const {name, weight, goal, date, direction, delta, walletgen, deltaPath, charity} = route.params;
     const [currentWeight, setCurrentWeight] = useState(weight);
     const [charityAdr, setCharityAdr] = useState(charity);
@@ -44,7 +45,7 @@ export default function Home({route}) {
     const [directionTerm, setDirectionTerm] = useState('');
 
   
-
+    //sets user data to state
     const [data, setData] = useState([
         {
         id: 1,
@@ -52,23 +53,21 @@ export default function Home({route}) {
         weight: userInfo.weight,
         result: "- $0.00"
     },
-    {
-        id: 2,
-        date: "1/1/2021",
-        weight: "200",
-        result: "- $0.00"
-    },
+    
 
    
 ]);
     
     const navigation = useNavigation();
+    //Navigation to wallet screen 
     const onWalletClick = () => {
         navigation.navigate('Wallet', {
            privateKey: pk,
            address: adr
         });
     };
+
+    //ON render, subscribes to transfer events on USDC contract and queries the balance of the user
     useEffect(() => {
         const contract = new ethers.Contract(USDCADR, USDCABI, walletgen);
 
@@ -104,7 +103,7 @@ export default function Home({route}) {
             } else if (ethers.utils.formatUnits(balance, 18).length == 4){
                 setBalance(ethers.utils.formatUnits(balance, 18));
             } else {
-                setBalance(ethers.utils.formatUnits(balance, 18).slice(0,ethers.utils.formatUnits(balance, 18).length - 1 ) );
+                setBalance(ethers.utils.formatUnits(balance, 18).slice(0,ethers.utils.formatUnits(balance, 18).length  ) );
             }
             
         }
@@ -114,6 +113,7 @@ export default function Home({route}) {
                 getBalance();
             }
         })
+
 
     }, []);
     return(
@@ -181,7 +181,7 @@ export default function Home({route}) {
     );
 }
 
-
+//CSS styles
 const styles = StyleSheet.create({
     container: {
         display: 'flex',

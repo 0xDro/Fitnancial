@@ -8,8 +8,11 @@ import { KeyboardAvoidingView } from 'react-native';
 
 
 export default function UserInfo() {
+    //INPUT FIELD STATES
     const [textName, setTextName] = useState('');
     const [weightText, setWeightText] = useState('');
+
+    //Send to Goal screen after pressing next
     const onNextBtn = () => {
         navigation.navigate('Goal', {
             name: textName,
@@ -46,7 +49,7 @@ export default function UserInfo() {
     );
 }
 
-
+//CSS styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,

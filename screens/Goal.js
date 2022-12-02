@@ -7,6 +7,7 @@ import { KeyboardAvoidingView } from 'react-native';
 
 
 export default function Goal({route}) {
+    //INPUT FIELDS STATE
     const [goalText, setGoalText] = useState('');
     const navigation = useNavigation();
 
@@ -14,13 +15,15 @@ export default function Goal({route}) {
     const [nameText, setNameText] = useState(name);
     const [weightText, setWeightText] = useState(weight);
 
+
+//Navigation for nex and back buttons
     const onNextBtn = () => {
         navigation.navigate('Time', {
             name: name,
             weight: weight,
             goal: goalText
         });
-    };
+    };  
     const onBackBtn = () => {
         navigation.navigate('UserInfo');
     };
@@ -46,7 +49,7 @@ export default function Goal({route}) {
     );
 }
 
-
+//CSS styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,

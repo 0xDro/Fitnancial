@@ -11,6 +11,8 @@ import { USDCABI, USDCADR, PROVIDER } from '../abi/USDCABI';
 
 
 export default function Wallet({route}){
+
+    //STATE SETTING FOR REPAYMENT
     const {privateKey, address} = route.params;
     const [balance, setBalance] = useState("0.00");
     const [wallet, setWallet] = useState();
@@ -21,7 +23,7 @@ export default function Wallet({route}){
       
         await Clipboard.setStringAsync(wallet.address);
     };
-
+    //Navigation back to home passing no state
     const navigation = useNavigation();
     const goHome = () => {
         navigation.navigate('Home', {
@@ -29,7 +31,7 @@ export default function Wallet({route}){
         });
     }
 
-
+    //Creates Ethers objects on render
     useEffect(() => {
 
         const provider = new ethers.providers.JsonRpcProvider(PROVIDER);
@@ -44,7 +46,7 @@ export default function Wallet({route}){
             } else if (ethers.utils.formatUnits(balance, 18).length == 4){
                 setBalance(ethers.utils.formatUnits(balance, 18));
             } else {
-                setBalance(ethers.utils.formatUnits(balance, 18).slice(0,ethers.utils.formatUnits(balance, 18).length - 1 ) );
+                setBalance(ethers.utils.formatUnits(balance, 18).slice(0,ethers.utils.formatUnits(balance, 18).length  ) );
             }
             
         }
@@ -75,6 +77,7 @@ export default function Wallet({route}){
 
 }
 
+//CSS styles
 const styles = StyleSheet.create({
     container: {
         display: 'flex',

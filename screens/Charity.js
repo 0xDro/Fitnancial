@@ -8,6 +8,8 @@ import "@ethersproject/shims";
 import {ethers} from 'ethers';
 import { THE_WATER_PROJECT, GRACE_AID, GIVE_DIRECTLY, BREAST_CANCER } from '../abi/USDCABI';
 export default function Charity({route}){
+
+    //Prop destructing and state setting
     const {name, weight, goal, date, direction, delta, walletgen, deltaPath} = route.params;
     const [selectedCharity, setSelectedCharity] = useState(null);
     const [otherText, setOtherText] = useState();
@@ -15,9 +17,7 @@ export default function Charity({route}){
 
     const navigation = useNavigation();
 
-    const setCharity = (num) => {
-        console.log(num)
-    }
+    //Checks if charity is selected and navigates to Home screen
     const toHome = () =>{
         if (selectedCharity == null){
             
@@ -49,6 +49,8 @@ export default function Charity({route}){
             
         }
     }
+
+
     return(
        
         <View style={styles.container}>
@@ -143,7 +145,7 @@ export default function Charity({route}){
     );
 }
 
-
+    //CSS styles
 const styles = StyleSheet.create({
     container: {
         display: 'flex',

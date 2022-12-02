@@ -9,7 +9,7 @@ import FITNANCIAL from '../assets/fitnancial.png';
 
 
 export default function Opening() {
-
+  //INPUT FIELD STATES
   const [textEmail, setTextEmail] = useState('');
   const [textPassword, setTextPassword] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
@@ -18,6 +18,8 @@ export default function Opening() {
 
   const navigation = useNavigation();
 
+
+  //Send navigation to UserInfo screen after verifying authentication when pressing signUp
   const onSignUp = () => {
     if (/\S+@\S+\.\S+/.test(textEmail)) {
       setErrMsgEmail('');
@@ -51,11 +53,11 @@ export default function Opening() {
       <View style={styles.container}>
         
           <View style={styles.opening}>
-            <Text style={styles.openingText}>The right path to your weight goals</Text>
+            <Text style={styles.openingText}>Fitnancial - Fit For the Future</Text>
           </View>
           <View style={styles.logoContainer}>
             <Image source={FITNANCIAL} style={styles.logoimg} />
-            <Text style={styles.logo}>Fitnancial</Text>
+            <Text style={styles.logo}>FITNANCIAL</Text>
           </View>
           <View style={styles.signUp}>
             <TextInput 
@@ -90,13 +92,15 @@ export default function Opening() {
     );
   }}
 
+  
+//CSS styling
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundImage: '#fff',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 25,
+    paddingTop: 30,
     paddingBottom: 25,
     
 

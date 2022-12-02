@@ -14,6 +14,8 @@ export default function Journey({route}){
     const [deltaPath, setDeltaPath] = useState(0);
 
     const navigation = useNavigation();
+
+    //Navigation with state passing
     const getStarted = () => {
       
         navigation.navigate('Payment', {
@@ -27,7 +29,7 @@ export default function Journey({route}){
             deltaTrack: deltaPath
         });
     }
-
+    //Calculates the delta between current weight and goal on render
     useEffect(() => {
         const curentDate = new Date();
         const goalDate = new Date(date);
@@ -65,6 +67,7 @@ export default function Journey({route}){
     );
 }
 
+//CSS styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,

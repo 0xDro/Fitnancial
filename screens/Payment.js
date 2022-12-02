@@ -11,7 +11,7 @@ import { USDCABI, USDCADR, PROVIDER } from '../abi/USDCABI';
 
 
 export default function Payment({route}){
-
+    //destruct props and set state
     const {name, weight, goal, date, direction, delta, walletgen, deltaTrack} = route.params;
     const provider = new ethers.providers.JsonRpcProvider(PROVIDER);
     const conectedWallet = walletgen.connect(provider);
@@ -27,7 +27,7 @@ export default function Payment({route}){
 
 
 
-    
+    //Copies text to clipboard 
     const copyToClipboard = async() => {
         
         await Clipboard.setStringAsync(wallet.address);
@@ -35,7 +35,7 @@ export default function Payment({route}){
 
     useEffect(() => {
        
-
+        //GETs USDC balance of user on the blockchain
         const getBalance = async() => {
             const balance = ethers.BigNumber.from(await contract.balanceOf(wallet.address));
 
@@ -44,13 +44,13 @@ export default function Payment({route}){
             } else if (ethers.utils.formatUnits(balance, 18).length == 4){
                 setBalance(ethers.utils.formatUnits(balance, 18));
             } else {
-                setBalance(ethers.utils.formatUnits(balance, 18).slice(0,ethers.utils.formatUnits(balance, 18).length - 1 ) );
+                setBalance(ethers.utils.formatUnits(balance, 18).slice(0,ethers.utils.formatUnits(balance, 18).length ) );
             }
             
         }
         getBalance();
 
-        
+        //Subscribes to the Transfer event on the USDC contract
         contract.on("Transfer", (from, to, amount) => {
             if (to == wallet.address) {
                 getBalance();
@@ -72,13 +72,13 @@ export default function Payment({route}){
                     You won't be able to continue until your balance reflects a value greater than $0.00
                 </Text>
             </View>
-            {balance == "0.01" ? <Text style={styles.explain}>Waiting for funds...</Text> : <Button title="Continue" color="#FFA500" onPress={() => navigation.navigate('Charity', {name: name, weight: weight, goal: goal, date: date, direction: direction, delta: delta, walletgen: wallet, deltaPath: deltaTrack})}/>}
+            {balance == "0.00" ? <Text style={styles.explain}>Waiting for funds...</Text> : <Button title="Continue" color="#FFA500" onPress={() => navigation.navigate('Charity', {name: name, weight: weight, goal: goal, date: date, direction: direction, delta: delta, walletgen: wallet, deltaPath: deltaTrack})}/>}
             
         </View>
     );
 }
 
-
+//CSS styles
 const styles = StyleSheet.create({
     container: {
         display: 'flex',

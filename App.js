@@ -20,6 +20,7 @@ if (!global.atob) { global.atob = decode }
 export default function App() {
 
     return (
+        //Set Stack Navigator for all screens in the app
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen options={{headerShown: false}} name="Opening" component={Opening} />
